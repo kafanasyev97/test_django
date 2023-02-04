@@ -44,11 +44,10 @@ class ThrottlingMiddleware:
         user_ip = request.META['REMOTE_ADDR']
         now = datetime.datetime.now()
         result = now - self.time
-        if result.seconds > 2:
+        if result.seconds > -1:
             self.time = datetime.datetime.now()
         else:
             raise Exception('Frequently Asked Questions')
         response = self.get_response(request)
         return response
-
 

@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from .forms import UserBioForm, UploadFileForm
 
 
 def process_get_view(request: HttpRequest) -> HttpResponse:
@@ -17,21 +18,32 @@ def process_get_view(request: HttpRequest) -> HttpResponse:
 
 
 def user_form(request: HttpRequest) -> HttpResponse:
-    return render(request, 'requestdataapp/user-bio-form.html')
+    context = {
+        'form': UserBioForm(),
+    }
+    return render(request, 'requestdataapp/user-bio-form.html', context=context)
 
 
 MAX_UPLOAD_SIZE = "1000000"
 def handle_file_upload(request: HttpRequest) -> HttpRequest:
-    if request.method == "POST" and request.FILES.get("myfile"):
-        myfile = request.FILES["myfile"]
-        if myfile.size < int(MAX_UPLOAD_SIZE):
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            print("saved file", filename)
-        else:
-            raise ValidationError('File too large. Size should not exceed 1 MiB.')
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            # myfile = request.FILES["myfile"]
+            myfile = form.cleaned_data['file']
+            if myfile.size < int(MAX_UPLOAD_SIZE):
+                fs = FileSystemStorage()
+                filename = fs.save(myfile.name, myfile)
+                print("saved file", filename)
+            else:
+                raise ValidationError('File too large. Size should not exceed 1 MiB.')
+    else:
+        form = UploadFileForm()
+    context = {
+        'form': form,
+    }
 
-    return render(request, "requestdataapp/file-upload.html")
+    return render(request, "requestdataapp/file-upload.html", context=context)
 
 
 # 2.5MB - 2621440
