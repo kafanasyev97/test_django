@@ -6,6 +6,7 @@
 
 {% block body %}
     <h1>Create a new order</h1>
+    {% if request.user.is_authenticated %}
     <div>
     <form method="post">
         {% csrf_token %}
@@ -22,4 +23,8 @@
             Back to orders list
         </a>
     </div>
+{% else %}
+        <h3>Вы неавторизованны на нашем сайте.</h3>
+        <a href="{% url 'app_users:another_login' %}">Войти</a>
+    {% endif %}
 {% endblock %}

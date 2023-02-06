@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+{% if request.user.is_authenticated %}
+    <h3>Добро пожаловать на сайт {{ request.user.username }}</h3>
+    <br>
+    <h3>Нажмите, если хотите удалить страницу</h3>
+    <a href="{% url 'app_users:another_logout' %}">Удалить</a>
+{% else %}
+    <h3>Вы неавторизованны на нашем сайте.</h3>
+    <a href="{% url 'app_users:another_login' %}">Войти</a>
+{% endif %}
+</body>
+</html>
