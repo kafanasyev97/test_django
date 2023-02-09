@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Главная страница</h1>
+    {% if request.user.is_authenticated %}
+    Добро пожаловать на сайт {{ request.user.username }}
+        <br>
+        <br>
+        Твои данные:
+
+        <br>
+        <p>Номер телефона: {{ request.user.newsprofile.phone_number}}</p>
+        <p>Город: {{ request.user.newsprofile.city}}</p>
+
+    {% else %}
+    <a href="{% url 'news_site:register' %}">Зарегистрироваться</a>
+    <div>
+        <a href="{% url 'news_site:login' %}">Войти на сайт</a>
+    </div>
+
+    {% endif %}
+</body>
+</html>

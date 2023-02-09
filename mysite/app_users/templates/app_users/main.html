@@ -6,7 +6,9 @@
 </head>
 <body>
 {% if request.user.is_authenticated %}
-    <h3>Добро пожаловать на сайт {{ request.user.username }}</h3>
+    <h3>Добро пожаловать на сайт {{ request.user.first_name }}</h3>
+    <p>День рождения: {{ request.user.profile.date_of_birth }}</p>
+    <p>Город: {{ request.user.profile.city }}</p>
     <br>
     <h3>Нажмите, если хотите удалить страницу</h3>
     <a href="{% url 'app_users:another_logout' %}">Удалить</a>

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'shopapp.apps.ShopappConfig',
     'requestdataapp.apps.RequestdataappConfig',
     'app_users.apps.AppUsersConfig',
+    'app_employment.apps.AppEmploymentConfig',
+    'news_site.apps.NewsSiteConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +130,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/users'
+LOGIN_REDIRECT_URL = '/news'
 
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60

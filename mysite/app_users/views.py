@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import AuthForm
+from .forms import AuthForm, RegisterForm
+from .models import Profile
 
 
 def login_view(request):
@@ -47,3 +49,40 @@ def logout_view(request):
 class AnotherLogoutView(LogoutView):
     # template_name = 'app_users/logout.html'
     next_page = '/users'
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/users')
+    else:
+        form = UserCreationForm()
+    return render(request, 'app_users/register.html', {'form': form})
+
+
+def another_register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            date_of_birth = form.cleaned_data.get('date_of_birth')
+            city = form.cleaned_data.get('city')
+            Profile.objects.create(
+                user=user,
+                city=city,
+                date_of_birth=date_of_birth,
+            )
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/users')
+    else:
+        form = RegisterForm()
+    return render(request, 'app_users/register.html', {'form': form})
