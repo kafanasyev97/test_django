@@ -14,15 +14,18 @@
         >Name: {{ product.name }}</a></p>
         <p>Price: {{ product.price }}</p>
         <p>Discount: {% firstof product.discount 'no discount' %}</p>
+        <p>Created_by: {{ product.created_by.username }}</p>
     </div>
     {% endfor%}
     </div>
         {% else %}
         <h3>No products yet</h3>
     {% endif %}
+    {% if perms.is_superuser %}
     <div>
     <a href="{% url 'shopapp:product_create' %}">
         Create a new product
     </a>
     </div>
+    {% endif %}
 {% endblock %}

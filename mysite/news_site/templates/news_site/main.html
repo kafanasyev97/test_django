@@ -13,8 +13,11 @@
         Твои данные:
 
         <br>
-        <p>Номер телефона: {{ request.user.newsprofile.phone_number}}</p>
-        <p>Город: {{ request.user.newsprofile.city}}</p>
+        <p>Номер телефона: {{ request.user.profilen.phone_number}}</p>
+        <p>Город: {{ request.user.profilen.city}}</p>
+        <br>
+        <a href="{% url 'news_site:details' pk=user.pk %}">К деталям</a>
+
 
     {% else %}
     <a href="{% url 'news_site:register' %}">Зарегистрироваться</a>

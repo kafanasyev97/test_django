@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views import View
+from django.views.generic import DetailView
 
 from .forms import RegisterFormNews, NewsForm
 from .models import Profilen
@@ -54,4 +56,12 @@ def create_news(request: HttpRequest):   # Создание новости
         }
         return render(request, 'news_site/create_news.html', context=context)
 
+
+class ProfilenDetailsView(View):
+    def get(self, request: HttpRequest, pk: int) -> HttpResponse:
+        profile = Profilen.objects.get(pk=request.user.profilen.pk)
+        context = {
+            'profile': profile
+        }
+        return render(request, 'news_site/account.html', context=context)
 
