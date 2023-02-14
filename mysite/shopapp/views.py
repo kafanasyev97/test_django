@@ -114,8 +114,12 @@ class ProductCreateView(UserPassesTestMixin, CreateView):
     success_url = reverse_lazy('shopapp:products_list')
 
 
-class ProductUpdateView(PermissionRequiredMixin, UpdateView):
-    permission_required = 'shopapp.change_product'
+class ProductUpdateView(UserPassesTestMixin, UpdateView):
+    def test_func(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('shopapp.change_product') or \
+                self.request.user.id == self.get_object().created_by_id:
+            return True
+        return False
     model = Product
     fields = 'name', 'price', 'description', 'discount'
     template_name_suffix = '_update_form'
@@ -125,6 +129,19 @@ class ProductUpdateView(PermissionRequiredMixin, UpdateView):
             'shopapp:product_details',
             kwargs={'pk': self.object.pk}
         )
+
+
+# class ProductUpdateView(PermissionRequiredMixin, UpdateView):
+#     permission_required = 'shopapp.change_product'
+#     model = Product
+#     fields = 'name', 'price', 'description', 'discount'
+#     template_name_suffix = '_update_form'
+#
+#     def get_success_url(self):
+#         return reverse(
+#             'shopapp:product_details',
+#             kwargs={'pk': self.object.pk}
+#         )
 
 
 class ProductDeleteView(DeleteView):
