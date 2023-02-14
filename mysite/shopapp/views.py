@@ -116,8 +116,8 @@ class ProductCreateView(UserPassesTestMixin, CreateView):
 
 class ProductUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
-        if self.request.user.is_superuser or self.request.user.has_perm('shopapp.change_product') or \
-                self.request.user.id == self.get_object().created_by_id:
+        if self.request.user.is_superuser or (self.request.user.has_perm('shopapp.change_product') and
+                self.request.user.id == self.get_object().created_by_id):
             return True
         return False
     model = Product
