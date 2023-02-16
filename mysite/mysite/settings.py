@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os.path
 from pathlib import Path
 
 from django.urls import reverse_lazy
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +46,9 @@ INSTALLED_APPS = [
     'app_employment.apps.AppEmploymentConfig',
     'news_site.apps.NewsSiteConfig',
     'myauth.apps.MyauthConfig',
+    'app_media.apps.AppMediaConfig',
+    'app_goods.apps.AppGoodsConfig',
+    'blog_app.apps.BlogAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,7 +137,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy('myauth:about-me')
+LOGIN_REDIRECT_URL = reverse_lazy('blog_app:account')
 LOGIN_URL = reverse_lazy('myauth:login')
 
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'

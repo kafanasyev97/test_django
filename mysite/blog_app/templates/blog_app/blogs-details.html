@@ -1,0 +1,15 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+    Blog #{{ blog.pk }}
+{% endblock %}
+
+{% block body %}
+    <div>
+    <div>Description: <em>{{ blog.description }}</em></div>
+    <div>Files: {{ blog.file }}</div>
+    </div>
+    <div>
+    <a href="{% url 'blog_app:blogs_list' %}">Back to blogs list</a>
+    </div>
+{% endblock %}

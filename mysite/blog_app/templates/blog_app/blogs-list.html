@@ -1,0 +1,22 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+    Список записей
+{% endblock %}
+
+{% block body %}
+    <h1>Записи:</h1>
+    {% if blogs %}
+    <div>
+        {% for blog in blogs %}
+    <div>
+        <p><a href="{% url 'blog_app:blogs_details' pk=blog.pk %}"
+        >Description: {{ blog.description }}</a></p>
+        <p>Created_by: {{ blog.user.username }}</p>
+    </div>
+    {% endfor%}
+    </div>
+        {% else %}
+        <h3>No blogs yet</h3>
+    {% endif %}
+{% endblock %}
