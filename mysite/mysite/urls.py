@@ -29,4 +29,5 @@ urlpatterns = [
     path('files/', include('app_media.urls')),
     path('goods/', include('app_goods.urls')),
     path('blog/', include('blog_app.urls')),
+    path('app_logic/', include('app_logic.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

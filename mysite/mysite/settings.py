@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'app_media.apps.AppMediaConfig',
     'app_goods.apps.AppGoodsConfig',
     'blog_app.apps.BlogAppConfig',
+    'app_logic.apps.AppLogicConfig',
 ]
 
 MIDDLEWARE = [
