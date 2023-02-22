@@ -51,8 +51,11 @@ class BookList(ListModelMixin, CreateModelMixin, GenericAPIView):
         queryset = Book.objects.all()
         item_auth = self.request.query_params.get('auth')
         item_name = self.request.query_params.get('name')
+        item_page = self.request.query_params.get('pages')
         if item_auth and item_name:
             queryset = queryset.filter(auth=item_auth, name=item_name)
+        if item_page > '500':
+            queryset = queryset.filter(pages=item_page)
         return queryset
 
     def get(self, request):
