@@ -32,4 +32,6 @@ urlpatterns = [
     path('app_logic/', include('app_logic.urls')),
     path('app_pages/', include('app_pages.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('api/', include('new_app_users.urls')),
+    path('api/', include('new_app_goods.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

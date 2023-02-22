@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os.path
 from pathlib import Path
-
+import django
+from django.conf import settings
 from django.urls import reverse_lazy
 
 
@@ -51,6 +52,9 @@ INSTALLED_APPS = [
     'blog_app.apps.BlogAppConfig',
     'app_logic.apps.AppLogicConfig',
     'app_pages.apps.AppPagesConfig',
+    'rest_framework',
+    'new_app_users.apps.NewAppUsersConfig',
+    'new_app_goods.apps.NewAppGoodsConfig',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +152,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2
+}
+
 LOGIN_REDIRECT_URL = reverse_lazy('blog_app:account')
 LOGIN_URL = reverse_lazy('myauth:login')
 
@@ -155,3 +164,9 @@ SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
+
+# SETTINGS = dict((key,val) for key, val in locals().items() if key.isupper())
+# if not settings.configured:
+#     settings.configure(**SETTINGS)
+# django.setup()
