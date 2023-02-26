@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create order</title>
+</head>
+<body>
+    <h1>Create a new order</h1>
+    {% if request.user.is_authenticated %}
+    <div>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button type="submit">
+            Create
+        </button>
+    </form>
+    </div>
+
+{% else %}
+        <h3>Вы неавторизованны на нашем сайте.</h3>
+    {% endif %}
+</body>
+</html>

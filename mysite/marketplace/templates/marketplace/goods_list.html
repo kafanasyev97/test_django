@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список товаров</title>
+</head>
+<body>
+    <h1>Товары:</h1>
+{% if goods %}
+    <div>
+        {% for good in goods %}
+    <div>
+        <p>Name: {{ good.name }}</p>
+        <p>Price: {{ good.price }}</p>
+        <p>Count: {{ good.count }}</p>
+    </div>
+            <div>
+                В каких магазинах есть:
+            <ul>
+                {% for shop in good.shops.all %}
+                    <li>{{ shop.name }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+    {% endfor%}
+    </div>
+        {% else %}
+        <h3>Нет товаров</h3>
+    {% endif %}
+</body>
+</html>

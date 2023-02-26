@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'new_app_users.apps.NewAppUsersConfig',
     'new_app_goods.apps.NewAppGoodsConfig',
     'drf_yasg',
+    'app_blogs.apps.AppBlogsConfig',
+    'marketplace.apps.MarketplaceConfig',
 ]
 
 MIDDLEWARE = [
@@ -159,8 +161,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2
 }
 
-LOGIN_REDIRECT_URL = reverse_lazy('blog_app:account')
-LOGIN_URL = reverse_lazy('myauth:login')
+LOGIN_REDIRECT_URL = reverse_lazy('marketplace:account')
+LOGIN_URL = reverse_lazy('marketplace:login')
 
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 
