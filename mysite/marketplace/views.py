@@ -9,6 +9,10 @@ from django.views.generic import ListView, CreateView
 from .utils import reduce_count_good, reduce_user_balance
 from .forms import RegisterForm, UpdateBalanceForm, OrdernewForm
 from .models import Profilenew, Good, Shop, Ordernew
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 def another_register_view(request):
@@ -37,10 +41,12 @@ class AccountView(View):
 
 
 class AnotherLoginView(LoginView):
+    logger.info('Запрошена страница с аутентификацией пользователя')
     template_name = 'marketplace/login.html'
 
 
 def update_balance_get(request, pk):   # обновляем баланс
+    logger.info('Запрошена страница с пополнением баланса')
     if request.method == 'POST':
         form = UpdateBalanceForm(request.POST)
         if form.is_valid():
@@ -63,6 +69,7 @@ class GoodListView(ListView):
 
 
 def create_order(request: HttpRequest):
+    logger.info('Запрошена страница с оформлением заказа')
     if request.method == 'POST':
         form = OrdernewForm(request.POST)
         if form.is_valid():
@@ -80,6 +87,7 @@ def create_order(request: HttpRequest):
 
 @transaction.atomic
 def result_order(request):
+    logger.info('Списываем баллы с баланса')
     reduce_user_balance(request)
     reduce_count_good(request)
 

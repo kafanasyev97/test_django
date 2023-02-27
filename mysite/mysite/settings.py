@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'app_blogs.apps.AppBlogsConfig',
     'marketplace.apps.MarketplaceConfig',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,7 @@ MIDDLEWARE = [
     'requestdataapp.middlewares.set_useragent_on_request_middleware',
     'requestdataapp.middlewares.CountRequestsMiddleware',
     'requestdataapp.middlewares.ThrottlingMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -168,6 +170,26 @@ SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log'
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'DEBUG',
+        'propagate': True
+    },
+}
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]
 
 
 # SETTINGS = dict((key,val) for key, val in locals().items() if key.isupper())
