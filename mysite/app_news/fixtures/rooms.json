@@ -1,0 +1,1 @@
+[{"model": "app_news.room", "pk": 1, "fields": {"count": 1}}, {"model": "app_news.room", "pk": 2, "fields": {"count": 2}}, {"model": "app_news.room", "pk": 3, "fields": {"count": 3}}]

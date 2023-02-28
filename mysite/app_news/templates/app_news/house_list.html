@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Жилье</title>
+</head>
+<body>
+     <h1>Жилье:</h1>
+    <div>
+        {% for product in products %}
+    <div>
+        <p>Name: {{ product.name }}</p>
+        <p>Discount: {% firstof product.discount 'no discount' %}</p>
+        <p>Type: {{ product.type.name }}</p>
+        <p>Count room: {{ product.rooms.count }}</p>
+    </div>
+     </div>
+{% endfor %}
+</body>
+</html>
