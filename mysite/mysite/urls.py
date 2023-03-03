@@ -65,5 +65,6 @@ urlpatterns = [
     path('__debug__/', include('debug_toolbar.urls')),
     path('newss/', include('app_news.urls')),
     path('rss/', include('app_rss.urls')),
+    path('', include('app_pages_new.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

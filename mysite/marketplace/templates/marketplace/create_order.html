@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create order</title>
-</head>
+{% extends 'marketplace/base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Create order' %}
+{% endblock %}
+{% block body %}
+
 <body>
-    <h1>Create a new order</h1>
+    <h1>{% trans 'Create a new order' %}</h1>
     {% if request.user.is_authenticated %}
     <div>
     <form method="post">
@@ -22,4 +23,4 @@
         <h3>Вы неавторизованны на нашем сайте.</h3>
     {% endif %}
 </body>
-</html>
+{% endblock %}

@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Update balance</title>
-</head>
+{% extends 'marketplace/base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Update balance' %}
+{% endblock %}
+{% block body %}
+
 <body>
-        <h1>Обновление баланса</h1>
+        <h1>{% trans 'Update balance' %}</h1>
     <div>
     <form method="post">
         {% csrf_token %}
@@ -14,4 +15,4 @@
     </form>
     </div>
 </body>
-</html>
+{% endblock %}

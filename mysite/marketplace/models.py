@@ -25,4 +25,17 @@ class Ordernew(models.Model):
     products = models.ManyToManyField(Good, related_name='orders')
 
 
+class History(models.Model):
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Promotion(models.Model):
+    name = models.CharField(max_length=200)
+
+
+class Offer(models.Model):
+    name = models.CharField(max_length=200)
+
+
 

@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Логин</title>
-</head>
+{% extends 'marketplace/base.html' %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Login' %}
+{% endblock %}
+{% block body %}
+
 <body>
-<h2>Страница входа</h2>
+<h2>{% trans 'Page enter' %}</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
 </form>
 </body>
-</html>
+{% endblock %}

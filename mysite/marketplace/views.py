@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
+from django.core.cache import cache
 from django.db import transaction
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
@@ -8,7 +9,7 @@ from django.views import View
 from django.views.generic import ListView, CreateView
 from .utils import reduce_count_good, reduce_user_balance
 from .forms import RegisterForm, UpdateBalanceForm, OrdernewForm
-from .models import Profilenew, Good, Shop, Ordernew
+from .models import Profilenew, Good, Shop, Ordernew, History, Promotion, Offer
 import logging
 
 
@@ -37,7 +38,22 @@ def another_register_view(request):
 
 class AccountView(View):
     def get(self, request):
-        return render(request, 'marketplace/account.html')
+        promotions = cache.get('promotions')
+        if not promotions:
+            promotions = Promotion.objects.all()
+            cache.set('promotions', promotions, 3600)
+
+        offers = cache.get('offers')
+        if not offers:
+            offers = Offer.objects.all()
+            cache.set('offers', offers, 3600)
+
+        context = {
+            'form': History.objects.filter(user=request.user),
+            'promotions': promotions,
+            'offers': offers,
+        }
+        return render(request, 'marketplace/account.html', context=context)
 
 
 class AnotherLoginView(LoginView):

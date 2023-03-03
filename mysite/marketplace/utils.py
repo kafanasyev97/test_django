@@ -1,5 +1,5 @@
 from .forms import OrdernewForm
-from .models import Good
+from .models import Good, History
 
 
 def reduce_user_balance(request):
@@ -22,6 +22,10 @@ def reduce_count_good(request):
         products = form.cleaned_data['products']
         for x in products:
             print(x.count)
+            History.objects.create(
+                name=x.name,
+                user=request.user
+            )
             x.count -= 1
             print(x.count)
             print(request.POST)
