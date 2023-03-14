@@ -37,7 +37,7 @@ def set_cookie_view(request: HttpRequest) -> HttpResponse:
 
 def get_cookie_view(request: HttpRequest) -> HttpResponse:
     value = request.COOKIES.get('fizz', 'default value')
-    return HttpResponse(f"Cookue value: {value!r}")
+    return HttpResponse(f"Cookie value: {value!r}")
 
 
 @permission_required('myauth.view_profiled', raise_exception=True)
